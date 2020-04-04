@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "350206927165",
+    "firebase_url": "https://viewpagerwithfirebasedat-3bc41.firebaseio.com",
+    "project_id": "viewpagerwithfirebasedat-3bc41",
+    "storage_bucket": "viewpagerwithfirebasedat-3bc41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350206927165:android:de27925937bc1088262554",
+        "android_client_info": {
+          "package_name": "com.rujirakongsomran.viewpagerwithfirebasedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350206927165-mg6349of2u1g004hoihuoejvjr21e1i8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtEVZbGbwG1LF9P_H7MXt5ndUYvczB7jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350206927165-mg6349of2u1g004hoihuoejvjr21e1i8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
