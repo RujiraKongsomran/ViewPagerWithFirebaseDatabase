@@ -20,7 +20,7 @@ import com.rujirakongsomran.viewpagerwithfirebasedatabase.Transformer.DepthPageT
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements IFirebaseLoadDone {
+public class MainActivity extends AppCompatActivity implements IFirebaseLoadDone, ValueEventListener {
     ViewPager viewPager;
     MyAdapter adapter;
 
@@ -50,22 +50,23 @@ public class MainActivity extends AppCompatActivity implements IFirebaseLoadDone
     }
 
     private void loadMovie() {
-        movies.addListenerForSingleValueEvent(new ValueEventListener() {
-            List<Movie> movieList = new ArrayList<>();
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot movieSnapShot : dataSnapshot.getChildren()) {
-                    movieList.add(movieSnapShot.getValue(Movie.class));
-                }
-                iFirebaseLoadDone.onFirebaseLoadSuccess(movieList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                iFirebaseLoadDone.onFirebaseLoadFailed(databaseError.getMessage());
-            }
-        });
+//        movies.addListenerForSingleValueEvent(new ValueEventListener() {
+//            List<Movie> movieList = new ArrayList<>();
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot movieSnapShot : dataSnapshot.getChildren()) {
+//                    movieList.add(movieSnapShot.getValue(Movie.class));
+//                }
+//                iFirebaseLoadDone.onFirebaseLoadSuccess(movieList);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                iFirebaseLoadDone.onFirebaseLoadFailed(databaseError.getMessage());
+//            }
+//        });
+        movies.addValueEventListener(this);
     }
 
     @Override
@@ -77,5 +78,39 @@ public class MainActivity extends AppCompatActivity implements IFirebaseLoadDone
     @Override
     public void onFirebaseLoadFailed(String message) {
         Toast.makeText(this, "" + message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        List<Movie> movieList = new ArrayList<>();
+        for (DataSnapshot movieSnapShot : dataSnapshot.getChildren()) {
+            movieList.add(movieSnapShot.getValue(Movie.class));
+        }
+        iFirebaseLoadDone.onFirebaseLoadSuccess(movieList);
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+        iFirebaseLoadDone.onFirebaseLoadFailed(databaseError.getMessage());
+    }
+
+    // Don't forget to remove listener when app is destroy
+
+    @Override
+    protected void onDestroy() {
+        movies.removeEventListener(this);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        movies.addValueEventListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        movies.removeEventListener(this);
+        super.onStop();
     }
 }
