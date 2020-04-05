@@ -3,6 +3,10 @@ package com.rujirakongsomran.viewpagerwithfirebasedatabase.Model;
 public class Movie {
     private String name, description, image;
 
+    public Movie() {
+
+    }
+
     public Movie(String name, String description, String image) {
         this.name = name;
         this.description = description;
